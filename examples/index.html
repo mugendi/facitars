@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Facitars Test</title>
+
+		<script src="http://chancejs.com/chance.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+
+		<script src="../dist/facitars.js"></script>
+
+		<style>
+			.facitar {
+				float: left;
+				padding: 5px;
+				border: 1px solid #eee;
+				margin: 2px;
+				font-size: 10px;
+			}
+			.facitar svg {
+				margin: 5px;
+			}
+
+			.facitar .color {
+				margin-left: 10px;
+				padding: 2px 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="facitars" ></div>
+
+		<script>
+			// generate some random name using chance
+			let names = new Array(100).fill(0).map((o) => chance.name());
+
+			const facitar = new Facitar();
+
+			// console.log(facitar);
+            console.time("Generating Facitars");
+
+			(async () => {
+				let container = $('#facitars');
+                let facitars = [];
+
+				for (let name of names) {
+					let { svg, color } = await facitar.generate(name);
+
+					// console.log(svg, color);
+
+					let clr = $('<span/>').addClass('color').css({
+						background: color,
+					});
+
+					$('<div/>')
+						.append(svg)
+						.append(`<br/><span>${name} </span>`)
+						.append(clr)
+						.addClass('facitar')
+						.appendTo(container);
+
+					// body.append(svg);
+				}
+
+                console.timeEnd("Generating Facitars");
+			})();
+		</script>
+	</body>
+</html>
