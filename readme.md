@@ -4,11 +4,12 @@
 
 Lightweight avatar generator for the browser and server (NodeJs) that creates colorful and gender neutral avatars and also conveniently returns the avatars primary color too!
 
-Facitars was built after I tried dozens of others and couldn't find one that provided support for all of the following:
+**Facitars** was built after I tried dozens of others and couldn't find one that provided support for all of the following:
 
-1. Creating lightweight (no complex curves and paths) SVG avatars with the help of [SVG.js](https://svgjs.dev/)
-   **Note:** If [SVG.js](https://svgjs.dev/) is not installed, it automatically loads it to dom.
+1. Creating lightweight (no complex curves and paths) SVG avatars with the help of [SVG.js](https://svgjs.dev/). The minified javascript file is only 16.9 KBs of awesomeness!
+
 2. Generating and Returning a unique (seed generated) color for each avatar. This is useful for applications where you wish to color code certain parts of your UI based on a users ID/email or whatever your seed value may be.
+
 3. Most importantly, this project is generates SVG avatars both in the browser and on the server in a consistent manner. To do so, it relies on [JSDOM](https://www.npmjs.com/package/jsdom) and [SVG.js](https://svgjs.dev/) while avoiding SVG operations that would produce inconsistent SVGs on browser and server. This means that [facitars](https://github.com/mugendi/facitars) goes beyond other avatar generators out there!
 
 ## Generating Facitars on the Browser
@@ -19,8 +20,12 @@ On the browser all you need is:
 
 ```html
 <!-- Add this line preferably to your <head> -->
-<script src="../dist/facitars.js"></script>
+<script src="../dist/facitars.min.js"></script>
 ```
+> Note that **Facitars** uses [SVG.js](https://svgjs.dev/). Consequently the minified svg.js file from [jsdelivr](https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@latest/dist/svg.min.js) will be automatically loaded if no instance of `window.SVG` is found.
+
+> If svg.js has already been loaded prior to loading facitars, then that instance is used.
+
 
 ### 2. Initialize the class
 

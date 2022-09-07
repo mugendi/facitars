@@ -24,11 +24,13 @@ class Facitars {
 	constructor(opts) {
 		if (typeof opts == 'object' && 'jsdom' in opts) {
 			const { JSDOM } = opts.jsdom;
+			const localSvgJs = opts.localSvgJs;
 
 			const { window } = new JSDOM(
-				`<html><head><meta charset="UTF-8" /><script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@latest/dist/svg.min.js"></script></head></html>`,
+				`<html>
+				<head><script>${localSvgJs}</script></head>
+				</html>`,
 				{
-					resources: 'usable',
 					runScripts: 'dangerously',
 					beforeParse(window) {
 						window.SVGElement.prototype.getBBox = () => ({
@@ -448,7 +450,8 @@ class Facitars {
 		if (typeof seed !== 'string') seed = seed.toString();
 
 		// validate size
-		if(typeof size !== 'number') throw new Error('Second argument (size) must be a number!')
+		if (typeof size !== 'number')
+			throw new Error('Second argument (size) must be a number!');
 
 		await this.#init();
 
