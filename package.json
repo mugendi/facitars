@@ -1,36 +1,47 @@
 {
-	"name": "facitars",
-	"version": "1.0.0",
-	"description": "Lightweight, gender neutral, avatar generator for project where you need not just unique avatars but color codes too!",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "cross-env NODE_ENV=production webpack --progress",
-		"build:dev": "cross-env NODE_ENV=development webpack --progress",
-		"postinstall": "yarn build"
-	},
-	"keywords": [
-		"avator",
-		"faces",
-		"generator",
-		"unique",
-		"user",
-		"seed",
-		"gender",
-		"gender-neutral"
-	],
-	"author": "Anthony Mugendi <ngurumugz@gmail.com>",
-	"license": "MIT",
-	"devDependencies": {
-		"cross-env": "^7.0.3",
-		"pinst": "^3.0.0",
-		"seed-color": "^2.0.1",
-		"seedrandom": "^3.0.5",
-		"uglifyjs-webpack-plugin": "^2.2.0",
-		"webpack": "^5.74.0",
-		"webpack-cli": "^4.10.0"
-	},
-	"dependencies": {
-		"jsdom": "^20.0.0"
-	}
+  "name": "facitars",
+  "version": "1.0.0",
+  "description": "Lightweight, gender neutral, avatar generator for project where you need not just unique avatars but color codes too!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --progress",
+    "build:dev": "cross-env NODE_ENV=development webpack --progress",
+    "postinstall": "yarn build"
+  },
+  "keywords": [
+    "avator",
+    "faces",
+    "generator",
+    "unique",
+    "user",
+    "seed",
+    "gender",
+    "gender-neutral"
+  ],
+  "author": "Anthony Mugendi <ngurumugz@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "pinst": "^3.0.0",
+    "seed-color": "^2.0.1",
+    "seedrandom": "^3.0.5",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "jsdom": "^20.0.0"
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mugendi/facitars.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mugendi/facitars/issues"
+  },
+  "homepage": "https://github.com/mugendi/facitars#readme"
 }
