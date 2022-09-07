@@ -78,7 +78,7 @@ class Facitars {
 			.catch(console.error);
 	}
 
-	#get_wighted_val(arr, type = '') {
+	#get_seed_val(arr, type = '') {
 		this.count++;
 
 		// add count to generate seed uniqueness across the various elements
@@ -122,37 +122,37 @@ class Facitars {
 			{
 				shape: 'rect',
 				args: [Size, Size],
-				radius: Size * this.#get_wighted_val([0.1, 0.2, 0.3]),
+				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 			},
 			{
 				shape: 'rect',
 				args: [Size * 0.6, Size],
-				radius: Size * this.#get_wighted_val([0.1, 0.2, 0.3]),
+				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 				move: [Size * 0.1 * -1, 0],
 			},
 			{
 				shape: 'rect',
 				args: [Size * 0.6, Size],
-				radius: Size * this.#get_wighted_val([0.1, 0.2, 0.3]),
+				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 				move: [Size * 0.5, 0],
 			},
 			{
 				shape: 'rect',
 				args: [Size, Size * 0.6],
-				radius: Size * this.#get_wighted_val([0.1, 0.2, 0.3]),
+				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 				move: [0, Size * -0.1],
 			},
 			{
 				shape: 'rect',
 				args: [Size, Size * 0.6],
-				radius: Size * this.#get_wighted_val([0.1, 0.2, 0.3]),
+				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 				move: [0, Size * 0.5],
 			},
 
 			{
 				shape: 'rect',
 				args: [Size, Size],
-				radius: Size * this.#get_wighted_val([0.1, 0.2, 0.3]),
+				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 			},
 			{ shape: 'circle', args: [Size] },
 			{
@@ -181,15 +181,15 @@ class Facitars {
 				shape: 'polygon',
 				args: [
 					`0,0 ${
-						Size * this.#get_wighted_val([0.0, 0.3, 0.5, 0.8])
+						Size * this.#get_seed_val([0.0, 0.3, 0.5, 0.8])
 					},0  ${
-						Size * this.#get_wighted_val([0.0, 0.3, 0.5, 0.8])
+						Size * this.#get_seed_val([0.0, 0.3, 0.5, 0.8])
 					},${Size} 0,${Size}`,
 				],
 			},
 		];
 
-		let { shape, args, radius, move } = this.#get_wighted_val(faces_arr);
+		let { shape, args, radius, move } = this.#get_seed_val(faces_arr);
 
 		let face = this.draw[shape](...args);
 		if (radius) {
@@ -216,23 +216,23 @@ class Facitars {
 				l: [Size * 0.3, Size * 0.3],
 				r: [Size * 0.7, Size * 0.3],
 
-				pupils: this.#get_wighted_val(pupils_arr),
+				pupils: this.#get_seed_val(pupils_arr),
 			},
 
 			{
 				l: [Size * 0.3, Size * 0.3],
 				r: [Size * 0.7, Size * 0.2],
-				pupils: this.#get_wighted_val(pupils_arr),
+				pupils: this.#get_seed_val(pupils_arr),
 			},
 
 			{
 				l: [Size * 0.3, Size * 0.2],
 				r: [Size * 0.7, Size * 0.3],
-				pupils: this.#get_wighted_val(pupils_arr),
+				pupils: this.#get_seed_val(pupils_arr),
 			},
 		];
 
-		let pos = this.#get_wighted_val(eyeballs_arr);
+		let pos = this.#get_seed_val(eyeballs_arr);
 
 		let eyeballs_shape_arr = [
 			{
@@ -279,14 +279,14 @@ class Facitars {
 
 		let eyes_arr = [
 			{
-				eyeballs: this.#get_wighted_val(eyeballs_shape_arr),
+				eyeballs: this.#get_seed_val(eyeballs_shape_arr),
 				pupils: { shape: 'circle', args: [Size / 6] },
 			},
 		];
 
-		let { eyeballs, pupils } = this.#get_wighted_val(eyes_arr);
+		let { eyeballs, pupils } = this.#get_seed_val(eyes_arr);
 
-		let eye_fill = this.#get_wighted_val(['#FFF']);
+		let eye_fill = this.#get_seed_val(['#FFF']);
 
 		this.draw[eyeballs.l.shape](...eyeballs.l.args)
 			.center(...pos.l)
@@ -313,7 +313,7 @@ class Facitars {
 			`m30,45 5,5 4,-10`,
 			`m30,40 C35,55 50,50 40,30`,
 		];
-		let path = this.draw.path(this.#get_wighted_val(nose_arr));
+		let path = this.draw.path(this.#get_seed_val(nose_arr));
 		path.stroke({ color: '#000', width: 3, linecap: 'round' });
 		path.fill('none');
 	}
@@ -322,7 +322,7 @@ class Facitars {
 		let mouth_arr = [
 			{
 				mouth: `10,50 30,60 50,60 70,50 50,70 30,70`,
-				teeth: this.#get_wighted_val([
+				teeth: this.#get_seed_val([
 					[`30,62 35,62 35,65 30,65`, `45,62 50,62 50,65 45,65`],
 					[
 						`30,62 35,62 35,65 30,65`,
@@ -331,7 +331,7 @@ class Facitars {
 					],
 					[''],
 				]),
-				smileLines: this.#get_wighted_val([
+				smileLines: this.#get_seed_val([
 					[['m10,40 -5,10 5,10'], ['m70,40 5,10 -5,10']],
 					[['m10,40 -5,10 15,20'], ['m70,40 5,10 -15,20']],
 					[''],
@@ -339,7 +339,7 @@ class Facitars {
 			},
 			{
 				mouth: `10,60 30,55 50,55 70,60 50,70 30,70`,
-				teeth: this.#get_wighted_val([
+				teeth: this.#get_seed_val([
 					[''],
 					[`30,55 35,55 35,60 30,60`, `45,55 50,55 50,60 45,60`],
 					[`10,60 30,63 50,63 70,60 50,56, 30,56`],
@@ -356,22 +356,22 @@ class Facitars {
 			},
 			{
 				mouth: `10,60 30,55 50,65 70,60 50,70 30,70`,
-				teeth: this.#get_wighted_val([
+				teeth: this.#get_seed_val([
 					[`30,55 45,63 30,60 20,57`],
 					[``],
 				]),
 			},
 			{
 				mouth: `10,60 30,65 50,55 70,60 50,70 30,70`,
-				teeth: this.#get_wighted_val([
+				teeth: this.#get_seed_val([
 					[`40,60 50,55 70,60 50,65 `],
 					[``],
 				]),
 			},
 		];
 
-		let { mouth, teeth, smileLines } = this.#get_wighted_val(mouth_arr);
-		// let smileLines = this.#get_wighted_val(smileLines_arr);
+		let { mouth, teeth, smileLines } = this.#get_seed_val(mouth_arr);
+		// let smileLines = this.#get_seed_val(smileLines_arr);
 
 		let mouthEl = this.draw
 			.polygon(mouth)
@@ -413,7 +413,7 @@ class Facitars {
 			[],
 		];
 
-		let brows = this.#get_wighted_val(brows_arr);
+		let brows = this.#get_seed_val(brows_arr);
 
 		// console.log(brows);
 
@@ -429,10 +429,10 @@ class Facitars {
 
 	transform(el, rotateArr = [0, 10, -10]) {
 		el.transform({
-			rotate: this.#get_wighted_val(rotateArr),
-			// translateX: this.#get_wighted_val([0,20,40,-40,-20]),
-			// translateY: this.#get_wighted_val([0,20,40,-40,-20]),
-			// scale: this.#get_wighted_val([0,2,3,4,-2,-3]),
+			rotate: this.#get_seed_val(rotateArr),
+			// translateX: this.#get_seed_val([0,20,40,-40,-20]),
+			// translateY: this.#get_seed_val([0,20,40,-40,-20]),
+			// scale: this.#get_seed_val([0,2,3,4,-2,-3]),
 		});
 	}
 
