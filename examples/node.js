@@ -1,5 +1,7 @@
 
-const Facitars = require('..');
+
+const Facitars = require('..').node();
+
 const fs = require('fs');
 const path = require('path');
 
