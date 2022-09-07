@@ -7,7 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "cross-env NODE_ENV=production webpack --progress",
 		"build:dev": "cross-env NODE_ENV=development webpack --progress",
-		"postinstall": "build"
+		"postinstall": "yarn build"
 	},
 	"keywords": [
 		"avator",
