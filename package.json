@@ -1,7 +1,7 @@
 {
 	"name": "facitars",
 	"version": "1.0.0",
-	"description": "Lightweight avatar generator for project where you need not just unique avatars but color codes too!",
+	"description": "Lightweight, gender neutral, avatar generator for project where you need not just unique avatars but color codes too!",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,9 @@
 		"generator",
 		"unique",
 		"user",
-		"seed"
+		"seed",
+    "gender",
+    "gender-neutral"
 	],
 	"author": "Anthony Mugendi <ngurumugz@gmail.com>",
 	"license": "MIT",
