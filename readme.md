@@ -60,10 +60,14 @@ Of course start with installing **facitars** `yarn add facitars`
 
 ```javascript
 // require
-const Facitars = require('facitars');
+const Facitars = require('facitars').node();
 ```
 
-> **Note:** For the server version. A [local version](./src/lib/svg.min.js) of svg.js is included. This is because we cannot trust any scripts from jsdelivr or any other source as JSDOM is known to leak its sandbox.
+
+> **Note:** 
+> You **must call `.node()`** when using on the server. This method wraps in JSDOM which is used to mock browser svg rendering.
+
+> For the server version. A [local version](./src/lib/svg.min.js) of svg.js is included. This is because we cannot trust any scripts from jsdelivr or any other source as JSDOM is known to leak its sandbox.
 
 ### 2. Initialize the class
 
@@ -76,7 +80,7 @@ const facitars = new Facitars();
 
 ```javascript
 // require
-const Facitars = require('facitars');
+const Facitars = require('facitars').node();
 //init
 const facitars = new Facitars();
 // create facitar for the seed 'Anthony Mugendi' that is 300x300px
@@ -84,11 +88,22 @@ let { svg, color } = await facitars.generate('Anthony Mugendi', 100);
 // use the svg and color values returned as you desire
 ```
 
-**Note:**
+## Using Facitars with Webpack and other package managers
+```javascript
+// simply require facitars
+const Facitar = require('facitars');
 
-For Server renders, you can write the SVG data returned to an svg file for later serving via HTTP or any other use. See the [Node Example](./examples/node.js) folder for more.
+// proceed to use as desired
+const facitar = new Facitar();
 
-For both browser abd server examples above, the following Facitar is generated against the seed "Anthony Mugendi" 🙂
+```
+
+> **Note:**
+> Do **not call `.node()`** as JSDOM is not needed, nor would it work anyway, in a browser environment.
+
+>For Server renders, you can write the SVG data returned to an svg file for later serving via HTTP or any other use. See the [Node Example](./examples/node.js) folder for more.
+
+For both browser and server examples above, the following Facitar is generated against the seed "Anthony Mugendi" 🙂
 
 ![Anthony Mugendi Facitar](https://repository-images.githubusercontent.com/533896513/20c44c8c-a4d7-4491-b871-27142e684d20)
 
