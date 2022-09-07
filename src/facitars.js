@@ -18,8 +18,63 @@ const chooser = new Chooser();
 
 const Size = 80;
 
-class Facitar {
-	constructor() {}
+let SVG;
+
+class Facitars {
+	constructor(opts) {
+		if (typeof opts == 'object' && 'jsdom' in opts) {
+			const { JSDOM } = opts.jsdom;
+
+			const { window } = new JSDOM(
+				`<html><head><meta charset="UTF-8" /><script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@latest/dist/svg.min.js"></script></head></html>`,
+				{
+					resources: 'usable',
+					runScripts: 'dangerously',
+					beforeParse(window) {
+						window.SVGElement.prototype.getBBox = () => ({
+							x: 0,
+							y: 0,
+							width: Size,
+							height: Size,
+							// whatever other props you need
+						});
+					},
+				}
+			);
+
+			this.window = window;
+		}
+	}
+
+	async load_script(src) {
+		// allow setting of document via jsdom
+		let win = this.window || window;
+		let { document } = win;
+
+		// if jsdom instance is passed to enable server based use
+		if (this.window) {
+			return new Promise((resolve, reject) => {
+				document.addEventListener('DOMContentLoaded', () => {
+					// console.log('LOADED', win.SVG);
+					SVG = win.SVG;
+					resolve();
+				});
+			});
+		}
+
+		return new Promise(function (resolve, reject) {
+			var s;
+			s = document.createElement('script');
+			s.src = src;
+			s.onload = resolve;
+			s.onerror = reject;
+			document.head.appendChild(s);
+		})
+			.then((resp) => {
+				SVG = window.SVG;
+			})
+			.catch(console.error);
+	}
 
 	#get_wighted_val(arr, type = '') {
 		this.count++;
@@ -379,41 +434,22 @@ class Facitar {
 		});
 	}
 
-	bg() {
-		let self = this;
-		let color = this.color;
-
-		let pattern = this.draw.pattern(20, 20, function (add) {
-			add.rect(20, 20).fill(color);
-			add.rect(10, 10).fill('#FFF');
-			add.rect(10, 10).fill('#FFF').move(10, 10);
-		});
-
-		let gradient = this.draw.gradient('radial', function (add) {
-			add.stop({ offset: 0, color: '#fff', opacity: 1 });
-			add.stop({
-				offset: self.#get_wighted_val([0, 0.1, 0.3, 0.5, 0.8]),
-				color,
-				opacity: self.#get_wighted_val([0, 0.1, 0.2, 0.3]),
-			});
-		});
-
-		let rect = this.draw.rect(Size, Size);
-
-		rect.attr({ fill: gradient, stroke: color });
-	}
-
 	async #init() {
 		if (typeof SVG == 'function') return;
 
-		// console.log("loading..");
-
-		await loadScript(
+		await this.load_script(
 			'https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@latest/dist/svg.min.js'
 		);
 	}
 
 	async generate(seed, size = 80) {
+		// validate seed
+		if (!seed) throw new Error(`First argument must be your seed value!`);
+		if (typeof seed !== 'string') seed = seed.toString();
+
+		// validate size
+		if(typeof size !== 'number') throw new Error('Second argument (size) must be a number!')
+
 		await this.#init();
 
 		this.count = 0;
@@ -428,9 +464,6 @@ class Facitar {
 		this.svg = SVG();
 
 		this.draw = this.svg.group();
-
-		// set bg
-		this.bg();
 
 		// draw face
 		this.face();
@@ -447,7 +480,7 @@ class Facitar {
 		// draw eyebrows
 		this.eyebrows();
 
-		// console.log('');
+		/**/
 
 		let ratio = size / Size;
 
@@ -459,7 +492,7 @@ class Facitar {
 			translateY: (Size / 2) * (ratio - 1),
 		});
 
-		this.svg.size(Size * ratio, Size * ratio);
+		this.svg.size(Size * ratio, Size * ratio).fill('#FFF');
 
 		return {
 			svg: this.svg.svg(),
@@ -468,20 +501,9 @@ class Facitar {
 	}
 }
 
-function loadScript(src) {
-	return new Promise(function (resolve, reject) {
-		var s;
-		s = document.createElement('script');
-		s.src = src;
-		s.onload = resolve;
-		s.onerror = reject;
-		document.head.appendChild(s);
-	});
-}
-
 if (typeof module !== 'undefined') {
-	module.exports = Facitar;
+	module.exports = Facitars;
 }
 if (typeof window !== 'undefined') {
-	window.Facitar = Facitar;
+	window.Facitars = Facitars;
 }

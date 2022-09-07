@@ -12,4 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module.exports = require('./src/facitars')
+// JSDOM is needed for node module to provide DOM 
+const jsdom = require('jsdom');
+
+const Facitars = require('./src/facitars');
+
+class JSDomInjector extends Facitars{
+    constructor(){
+        super({jsdom})
+    }
+}
+
+module.exports = JSDomInjector
