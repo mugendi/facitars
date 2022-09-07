@@ -3,15 +3,12 @@
 	"version": "1.0.0",
 	"description": "Lightweight, gender neutral, avatar generator for project where you need not just unique avatars but color codes too!",
 	"main": "index.js",
+	"private": false,
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "cross-env NODE_ENV=production webpack --progress",
 		"build:dev": "cross-env NODE_ENV=development webpack --progress"
 	},
-	"pre-commit": [
-		"build",
-		"barbuild:dev"
-	],
 	"keywords": [
 		"avator",
 		"faces",
@@ -25,8 +22,9 @@
 	"author": "Anthony Mugendi <ngurumugz@gmail.com>",
 	"license": "MIT",
 	"devDependencies": {
-		"@svgdotjs/svg.js": "^3.1.2",
 		"cross-env": "^7.0.3",
+		"husky": "^8.0.1",
+		"pinst": "^3.0.0",
 		"seed-color": "^2.0.1",
 		"seedrandom": "^3.0.5",
 		"uglifyjs-webpack-plugin": "^2.2.0",
@@ -34,7 +32,6 @@
 		"webpack-cli": "^4.10.0"
 	},
 	"dependencies": {
-		"jsdom": "^20.0.0",
-		"pre-commit": "^1.2.2"
+		"jsdom": "^20.0.0"
 	}
 }
