@@ -63,6 +63,8 @@ Of course start with installing **facitars** `yarn add facitars`
 const Facitars = require('facitars');
 ```
 
+> **Note:** For the server version. A [local version](./src/lib/svg.min.js) of svg.js is included. This is because we cannot trust any scripts from jsdelivr or any other source as JSDOM is known to leak its sandbox.
+
 ### 2. Initialize the class
 
 ```javascript
