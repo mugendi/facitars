@@ -13,9 +13,7 @@
 // limitations under the License.
 const Facitars = require('./src/facitars');
 
-
-function node() {	
-
+function node() {
 	// JSDOM is needed for node module to provide DOM
 	const jsdom = require('jsdom');
 	const path = require('path');
@@ -34,9 +32,10 @@ function node() {
 		}
 	}
 
-    return JSDomInjector
+	return JSDomInjector;
 }
 
-module.exports = Facitars;
-
-module.exports.node = node;
+module.exports = {
+	browser: ()=>Facitars,
+	node,
+};
