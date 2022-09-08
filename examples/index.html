@@ -9,9 +9,12 @@
 		<script src="http://chancejs.com/chance.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
 
-		<script src="../dist/facitars.min.js"></script>
+		<script src="../dist/facitars.js"></script>
 
 		<style>
+			body {
+				background-color: #eee;
+			}
 			.facitar {
 				float: left;
 				padding: 5px;
@@ -29,18 +32,118 @@
 		</style>
 	</head>
 	<body>
-		<div id="facitars" ></div>
+		<div id="facitars"></div>
 
 		<script>
 			// generate some random name using chance
-			let names = ['Marie Marsh', 'Birdie Romero', 'Martha Hubbard', 'Nannie Stanley', 'Ronnie McGee', 'Todd Kelley', 'David Vasquez', 'Elizabeth Valdez', 'Theodore Farmer', 'Gussie Meyer', 'Mollie Hernandez', 'Ida McCoy', 'Tom Welch', 'Harriett Diaz', 'Rebecca Tate', 'Glenn Allison', 'Sally Dennis', 'Winnie Barker', 'Larry Ward', 'Callie McCormick', 'Sara Bowers', 'Lizzie Pearson', 'Ruby McKenzie', 'Shane Schultz', 'Edward Park', 'Lina Schmidt', 'Lottie Payne', 'Corey Todd', 'Ricky Hammond', 'Martin Townsend', 'Kathryn Cunningham', 'Brandon Bailey', 'William Becker', 'Floyd Snyder', 'Madge Allen', 'Nell Beck', 'Isabelle Richards', 'Minerva Becker', 'Marvin George', 'Sally Welch', 'Jeremiah Johnston', 'Edgar Blair', 'Paul Singleton', 'Luis Barnett', 'Ivan Hughes', 'Cody Steele', 'Curtis Young', 'Elmer Caldwell', 'Jeanette Riley', 'Eleanor Malone', 'Jeanette Steele', 'Susan Tucker', 'Evelyn Brady', 'Elijah Jordan', 'Alexander Robbins', 'Lewis Owens', 'Randy Crawford', 'Walter Miller', 'Shawn Harvey', 'Harvey Lawrence', 'Jeanette Quinn', 'Nora Harper', 'Eleanor Perry', 'Marguerite Summers', 'Lura Harrington', 'Maria Dunn', 'Lucile Diaz', 'Maurice Parks', 'Gregory Thornton', 'Blake Rodriquez', 'Garrett Morales', 'Louisa Alexander', 'Albert Lowe', 'Alta Phelps', 'Gussie Schmidt', 'Gregory Herrera', 'Susie Walker', 'Carrie Norman', 'Inez Cross', 'Roxie Singleton', 'Mason Gutierrez', 'Chester Jones', 'Jeffery Malone', 'Richard Norris', 'Helen Rodriguez', 'Jon Marsh', 'Cynthia Crawford', 'Lewis Hogan', 'Bill Drake', 'Effie Saunders', 'Ronald McKenzie', 'Tony Conner', 'Harriet Ball', 'Marie Walker', 'Barbara Wilkins', 'Estella Warren', 'Adelaide Peters', 'Randall Burke', 'Ruth Garrett', 'Isabella Vasquez']
-
-			names.unshift("Mugz")
+			let names = [
+				'Anthony Mugendi',
+				'Marie Marsh',
+				'Birdie Romero',
+				'Martha Hubbard',
+				'Nannie Stanley',
+				'Ronnie McGee',
+				'Todd Kelley',
+				'David Vasquez',
+				'Elizabeth Valdez',
+				'Theodore Farmer',
+				'Gussie Meyer',
+				'Mollie Hernandez',
+				'Ida McCoy',
+				'Tom Welch',
+				'Harriett Diaz',
+				'Rebecca Tate',
+				'Glenn Allison',
+				'Sally Dennis',
+				'Winnie Barker',
+				'Larry Ward',
+				'Callie McCormick',
+				'Sara Bowers',
+				'Lizzie Pearson',
+				'Ruby McKenzie',
+				'Shane Schultz',
+				'Edward Park',
+				'Lina Schmidt',
+				'Lottie Payne',
+				'Corey Todd',
+				'Ricky Hammond',
+				'Martin Townsend',
+				'Kathryn Cunningham',
+				'Brandon Bailey',
+				'William Becker',
+				'Floyd Snyder',
+				'Madge Allen',
+				'Nell Beck',
+				'Isabelle Richards',
+				'Minerva Becker',
+				'Marvin George',
+				'Sally Welch',
+				'Jeremiah Johnston',
+				'Edgar Blair',
+				'Paul Singleton',
+				'Luis Barnett',
+				'Ivan Hughes',
+				'Cody Steele',
+				'Curtis Young',
+				'Elmer Caldwell',
+				'Jeanette Riley',
+				'Eleanor Malone',
+				'Jeanette Steele',
+				'Susan Tucker',
+				'Evelyn Brady',
+				'Elijah Jordan',
+				'Alexander Robbins',
+				'Lewis Owens',
+				'Randy Crawford',
+				'Walter Miller',
+				'Shawn Harvey',
+				'Harvey Lawrence',
+				'Jeanette Quinn',
+				'Nora Harper',
+				'Eleanor Perry',
+				'Marguerite Summers',
+				'Lura Harrington',
+				'Maria Dunn',
+				'Lucile Diaz',
+				'Maurice Parks',
+				'Gregory Thornton',
+				'Blake Rodriquez',
+				'Garrett Morales',
+				'Louisa Alexander',
+				'Albert Lowe',
+				'Alta Phelps',
+				'Gussie Schmidt',
+				'Gregory Herrera',
+				'Susie Walker',
+				'Carrie Norman',
+				'Inez Cross',
+				'Roxie Singleton',
+				'Mason Gutierrez',
+				'Chester Jones',
+				'Jeffery Malone',
+				'Richard Norris',
+				'Helen Rodriguez',
+				'Jon Marsh',
+				'Cynthia Crawford',
+				'Lewis Hogan',
+				'Bill Drake',
+				'Effie Saunders',
+				'Ronald McKenzie',
+				'Tony Conner',
+				'Harriet Ball',
+				'Marie Walker',
+				'Barbara Wilkins',
+				'Estella Warren',
+				'Adelaide Peters',
+				'Randall Burke',
+				'Ruth Garrett',
+				'Isabella Vasquez',
+			];
 
 			const facitars = new Facitars();
 
 			// console.log(facitar);
-            console.time("Generating Facitars");
+			console.time('Generating Facitars');
 
 			(async () => {
 				let container = $('#facitars');
@@ -50,11 +153,14 @@
 
 					// console.log(svg, color);
 
-					let clrEl= $('<div/>').addClass('color').css({
-						background: color,
-					}).text(color);
-					
-					let nameEl = $('<div/>').text(name)
+					let clrEl = $('<div/>')
+						.addClass('color')
+						.css({
+							background: color,
+						})
+						.text(color);
+
+					let nameEl = $('<div/>').text(name);
 
 					$('<div/>')
 						.append(svg)
@@ -66,7 +172,7 @@
 					// body.append(svg);
 				}
 
-                console.timeEnd("Generating Facitars");
+				console.timeEnd('Generating Facitars');
 			})();
 		</script>
 	</body>
