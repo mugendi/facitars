@@ -117,3 +117,6 @@ The `seed` can be any value so long as it can be converted into a string using `
 
 The `size` argument determines the dimensions of the final SVG. Default is 80.
 
+## Examples
+Have a loog at [Browser Example](./examples/index.html) as well as the [NODE/Server](./examples/node.js) Examples for more.
+
