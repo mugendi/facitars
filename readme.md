@@ -1,6 +1,6 @@
 # Facitars!
 
-![Sample Facitars](https://repository-images.githubusercontent.com/533896513/9f78e67a-c195-4028-92bc-dfb1bd133390)
+![Sample Facitars](https://repository-images.githubusercontent.com/533896513/185c2b58-1893-4ef0-84d0-165fbbd48adf)
 
 Lightweight avatar generator for the browser and server (NodeJs) that creates colorful and gender neutral avatars and also conveniently returns the avatars primary color too!
 
@@ -11,6 +11,8 @@ Lightweight avatar generator for the browser and server (NodeJs) that creates co
 2. Generating and Returning a unique (seed generated) color for each avatar. This is useful for applications where you wish to color code certain parts of your UI based on a users ID/email or whatever your seed value may be.
 
 3. Most importantly, this project is generates SVG avatars both in the browser and on the server in a consistent manner. To do so, it relies on [JSDOM](https://www.npmjs.com/package/jsdom) and [SVG.js](https://svgjs.dev/) while avoiding SVG operations that would produce inconsistent SVGs on browser and server. This means that [facitars](https://github.com/mugendi/facitars) goes beyond other avatar generators out there!
+
+4. Finally, all avatars generated should be of the same size so as to fit well in grids and UIs
 
 ## Generating Facitars on the Browser
 
@@ -105,7 +107,7 @@ const facitar = new Facitar();
 
 For both browser and server examples above, the following Facitar is generated against the seed "Anthony Mugendi" 🙂
 
-![Anthony Mugendi Facitar](https://repository-images.githubusercontent.com/533896513/20c44c8c-a4d7-4491-b871-27142e684d20)
+![Anthony Mugendi Facitar](https://repository-images.githubusercontent.com/533896513/fa3f09cd-ded7-462d-b27a-fd0b6cd599c1)
 
 ## API
 
