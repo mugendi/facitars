@@ -7,10 +7,12 @@ const path = require('path');
 
 (async () => {
 
-	const facitars = new Facitars();
-	let { svg, color } = await facitars.generate("Anthony Mugendi", 300);
+	let name = "Anthony Mugendi"
 
-	console.log({ svg, color });
+	const facitars = new Facitars();
+	let { svg, color } = await facitars.generate(name);
+
+	console.log({  color });
 
 	fs.writeFileSync(path.join(__dirname, './test.svg'), svg);
 
