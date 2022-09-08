@@ -1,6 +1,6 @@
 {
   "name": "facitars",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lightweight, gender neutral, avatar generator for project where you need not just unique avatars but color codes too!",
   "main": "index.js",
   "scripts": {
