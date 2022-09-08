@@ -24,10 +24,10 @@ On the browser all you need is:
 <!-- Add this line preferably to your <head> -->
 <script src="../dist/facitars.min.js"></script>
 ```
+
 > Note that **Facitars** uses [SVG.js](https://svgjs.dev/). Consequently the minified svg.js file from [jsdelivr](https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@latest/dist/svg.min.js) will be automatically loaded if no instance of `window.SVG` is found.
 
 > If svg.js has already been loaded prior to loading facitars, then that instance is used.
-
 
 ### 2. Initialize the class
 
@@ -42,12 +42,9 @@ On the browser all you need is:
 
 ```html
 <script>
-	// init
-	const facitars = new Facitars();
-	// generate your facitar.
 	// Note generate() function is asynchronous
 	(async () => {
-		// create facitar for the seed 'Anthony Mugendi' that is 300x300px
+		// create 300x300px facitar for the seed 'Anthony Mugendi'
 		let { svg, color } = await facitars.generate('Anthony Mugendi', 100);
 		// use the svg and color values returned as you desire
 	})();
@@ -65,8 +62,7 @@ Of course start with installing **facitars** `yarn add facitars`
 const Facitars = require('facitars').node();
 ```
 
-
-> **Note:** 
+> **Note:**
 > You **must call `.node()`** when using on the server. This method wraps in JSDOM which is used to mock browser svg rendering.
 
 > For the server version. A [local version](./src/lib/svg.min.js) of svg.js is included. This is because we cannot trust any scripts from jsdelivr or any other source as JSDOM is known to leak its sandbox.
@@ -81,29 +77,28 @@ const facitars = new Facitars();
 ### 3. Generate your Facitar
 
 ```javascript
-// require
-const Facitars = require('facitars').node();
-//init
-const facitars = new Facitars();
-// create facitar for the seed 'Anthony Mugendi' that is 300x300px
-let { svg, color } = await facitars.generate('Anthony Mugendi', 100);
-// use the svg and color values returned as you desire
+// Note generate() function is asynchronous
+(async () => {
+	// create 300x300px facitar for the seed 'Anthony Mugendi'
+	let { svg, color } = await facitars.generate('Anthony Mugendi', 100);
+	// use the svg and color values returned as you desire
+})();
 ```
 
 ## Using Facitars with Webpack and other package managers
+
 ```javascript
 // simply require facitars
-const Facitar = require('facitars');
+const Facitar = require('facitars').browser();
 
 // proceed to use as desired
 const facitar = new Facitar();
-
 ```
 
 > **Note:**
-> Do **not call `.node()`** as JSDOM is not needed, nor would it work anyway, in a browser environment.
+> Ensure you call **`.browser()` not `.node()`** as JSDOM is not needed, nor would it work anyway, in a browser environment. Also `.browser()` provides only the facitar class and therefore is perfect for your tree-shaking.
 
->For Server renders, you can write the SVG data returned to an svg file for later serving via HTTP or any other use. See the [Node Example](./examples/node.js) folder for more.
+> For Server renders, you can write the SVG data returned to an svg file for later serving via HTTP or any other use. See the [Node Example](./examples/node.js) folder for more.
 
 For both browser and server examples above, the following Facitar is generated against the seed "Anthony Mugendi" 🙂
 
@@ -118,5 +113,5 @@ The `seed` can be any value so long as it can be converted into a string using `
 The `size` argument determines the dimensions of the final SVG. Default is 80.
 
 ## Examples
-Have a loog at [Browser Example](./examples/index.html) as well as the [NODE/Server](./examples/node.js) Examples for more.
 
+Have a look at [Browser Example](./examples/index.html) as well as the [NODE/Server](./examples/node.js) Examples for more.
