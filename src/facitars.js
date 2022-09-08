@@ -22,6 +22,7 @@ let SVG;
 
 class Facitars {
 	constructor(opts) {
+		let self = this;
 		if (typeof opts == 'object' && 'jsdom' in opts) {
 			const { JSDOM } = opts.jsdom;
 			const localSvgJs = opts.localSvgJs;
@@ -33,6 +34,7 @@ class Facitars {
 				{
 					runScripts: 'dangerously',
 					beforeParse(window) {
+						// console.log(self);
 						window.SVGElement.prototype.getBBox = () => ({
 							x: 0,
 							y: 0,
@@ -124,18 +126,7 @@ class Facitars {
 				args: [Size, Size],
 				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 			},
-			{
-				shape: 'rect',
-				args: [Size * 0.6, Size],
-				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
-				move: [Size * 0.1 * -1, 0],
-			},
-			{
-				shape: 'rect',
-				args: [Size * 0.6, Size],
-				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
-				move: [Size * 0.5, 0],
-			},
+
 			{
 				shape: 'rect',
 				args: [Size, Size * 0.6],
@@ -155,6 +146,7 @@ class Facitars {
 				radius: Size * this.#get_seed_val([0.1, 0.2, 0.3]),
 			},
 			{ shape: 'circle', args: [Size] },
+
 			{
 				shape: 'polygon',
 				args: [`0,0 ${Size / 2},${Size} ${Size},0`],
@@ -169,14 +161,6 @@ class Facitars {
 				],
 			},
 
-			{
-				shape: 'polygon',
-				args: [
-					`0,0 ${Size * 0.8},${Size * 0.5} ${Size * 0.5},${Size} ${
-						Size * 0.2
-					},${Size * 0.5} ${Size},0`,
-				],
-			},
 			{
 				shape: 'polygon',
 				args: [
@@ -200,7 +184,7 @@ class Facitars {
 			face.move(...move);
 		}
 
-		face.fill(this.color);
+		face.fill(this.colorHex);
 	}
 
 	eyes() {
@@ -356,17 +340,11 @@ class Facitars {
 			},
 			{
 				mouth: `10,60 30,55 50,65 70,60 50,70 30,70`,
-				teeth: this.#get_seed_val([
-					[`30,55 45,63 30,60 20,57`],
-					[``],
-				]),
+				teeth: this.#get_seed_val([[`30,55 45,63 30,60 20,57`], [``]]),
 			},
 			{
 				mouth: `10,60 30,65 50,55 70,60 50,70 30,70`,
-				teeth: this.#get_seed_val([
-					[`40,60 50,55 70,60 50,65 `],
-					[``],
-				]),
+				teeth: this.#get_seed_val([[`40,60 50,55 70,60 50,65 `], [``]]),
 			},
 		];
 
@@ -375,7 +353,8 @@ class Facitars {
 
 		let mouthEl = this.draw
 			.polygon(mouth)
-			.stroke({ color: '#bbb', width: 1, linecap: 'round' });
+			.stroke({ color: '#bbb', width: 1, linecap: 'round' })
+			.fill(this.#get_seed_val(['#222', '#444', 'black']));
 
 		let teethEl, smileLinesEl;
 
@@ -402,29 +381,79 @@ class Facitars {
 		this.transform(group);
 	}
 
-	eyebrows() {
-		let brows_arr = [
-			[`m0,20 30,-15 10,10`, 'm45,10 20,-5 30,20'],
-			[``, 'm45,10 20,-5 30,20'],
-			[`m0,20 30,-15 10,10`, ''],
-			['m5,5 20,0 10,5', 'm45,10 10,-5 20,0'],
-			['m5,5 20,0 10,5', ''],
-			['', 'm45,10 10,-5 20,0'],
-			[],
-		];
+	eyebrows() {}
 
-		let brows = this.#get_seed_val(brows_arr);
+	bg() {
+		let lightColor = brighten_color(
+			this.colorHex,
+			this.#get_seed_val([80, 90])
+		);
 
-		// console.log(brows);
+		this.draw
+			.polygon(`0,0 ${Size},0 ${Size},${Size}, 0,${Size}`)
+			.fill(this.#get_seed_val(['#FFF', lightColor]));
 
-		for (let brow of brows) {
-			if (brow) {
-				this.draw
-					.path(brow)
-					.stroke({ color: '#000', width: 5, linecap: 'round' })
-					.fill('none');
+		let bg = this.draw.polygon(`0,0 ${Size},0 ${Size},${Size}, 0,${Size}`);
+		// .fill('none').stroke({ width: 1 })
+
+		let rectSize = this.#get_seed_val([10, 20, 40]);
+		lightColor = brighten_color(
+			this.colorHex,
+			this.#get_seed_val([60, 70, 80])
+		);
+		let pattern = this.draw
+			.pattern(rectSize, rectSize, function (add) {
+				add.rect(rectSize, rectSize).fill(lightColor);
+				add.rect(rectSize / 2, rectSize / 2).fill('#FFF');
+				add.rect(rectSize / 2, rectSize / 2)
+					.fill('#FFF')
+					.move(rectSize / 2, rectSize / 2);
+			})
+			.transform({
+				rotate: this.#get_seed_val([0, 10, 30, 45, 60, 90, 135]),
+			});
+
+		lightColor = brighten_color(
+			this.colorHex,
+			this.#get_seed_val([160, 70, 80])
+		);
+		let opacityOrder = this.#get_seed_val([
+			[0, 0.5, 1],
+			[1, 0, 0.5],
+			[0, 0, 1],
+			[1, 0.5, 0],
+		]);
+		let gradient = this.draw.gradient(
+			this.#get_seed_val(['linear', 'radial']),
+			function (add) {
+				add.stop({
+					offset: 0,
+					color: lightColor,
+					opacity: opacityOrder[0],
+				});
+				add.stop({
+					offset: 0.5,
+					color: lightColor,
+					opacity: opacityOrder[1],
+				});
+				add.stop({
+					offset: 1,
+					color: '#FFF',
+					opacity: opacityOrder[2],
+				});
 			}
-		}
+		);
+
+		bg.fill(
+			this.#get_seed_val([
+				// no bg
+				'none',
+				// pattern
+				pattern,
+				// or gradient
+				gradient,
+			])
+		);
 	}
 
 	transform(el, rotateArr = [0, 10, -10]) {
@@ -462,11 +491,17 @@ class Facitars {
 
 		this.seed = seed;
 
-		this.color = seedColor(seed).toHex();
+		this.color = seedColor(seed);
+		this.colorHex = this.color.toHex();
 
 		this.svg = SVG();
 
+		// this.svg.fill("red")
+
 		this.draw = this.svg.group();
+
+		// bg
+		this.bg();
 
 		// draw face
 		this.face();
@@ -480,9 +515,6 @@ class Facitars {
 		// add nose
 		this.nose();
 
-		// draw eyebrows
-		this.eyebrows();
-
 		/**/
 
 		let ratio = size / Size;
@@ -495,13 +527,41 @@ class Facitars {
 			translateY: (Size / 2) * (ratio - 1),
 		});
 
-		this.svg.size(Size * ratio, Size * ratio).fill('#FFF');
+		this.svg.size(Size * ratio, Size * ratio);
+		// this.svg.fill('#FFF');
 
 		return {
 			svg: this.svg.svg(),
-			color: this.color,
+			color: this.colorHex,
 		};
 	}
+}
+
+function brighten_color(hex, percent) {
+	// strip the leading # if it's there
+	hex = hex.replace(/^\s*#|\s*$/g, '');
+
+	// convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+	if (hex.length == 3) {
+		hex = hex.replace(/(.)/g, '$1$1');
+	}
+
+	var r = parseInt(hex.substr(0, 2), 16),
+		g = parseInt(hex.substr(2, 2), 16),
+		b = parseInt(hex.substr(4, 2), 16);
+
+	return (
+		'#' +
+		(0 | ((1 << 8) + r + ((256 - r) * percent) / 100))
+			.toString(16)
+			.substr(1) +
+		(0 | ((1 << 8) + g + ((256 - g) * percent) / 100))
+			.toString(16)
+			.substr(1) +
+		(0 | ((1 << 8) + b + ((256 - b) * percent) / 100))
+			.toString(16)
+			.substr(1)
+	);
 }
 
 if (typeof module !== 'undefined') {
