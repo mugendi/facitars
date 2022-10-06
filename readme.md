@@ -22,7 +22,7 @@ On the browser all you need is:
 
 ```html
 <!-- Add this line preferably to your <head> -->
-<script src="../dist/facitars.min.js"></script>
+<script src="/dist/facitars.min.js"></script>
 ```
 
 > Note that **Facitars** uses [SVG.js](https://svgjs.dev/). Consequently the minified svg.js file from [jsdelivr](https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@latest/dist/svg.min.js) will be automatically loaded if no instance of `window.SVG` is found.
@@ -45,7 +45,7 @@ On the browser all you need is:
 	// Note generate() function is asynchronous
 	(async () => {
 		// create 300x300px facitar for the seed 'Anthony Mugendi'
-		let { svg, color } = await facitars.generate('Anthony Mugendi', 100);
+		let { svg, color } = await facitars.generate('Anthony Mugendi', 300);
 		// use the svg and color values returned as you desire
 	})();
 </script>
