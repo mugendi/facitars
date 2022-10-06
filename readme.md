@@ -59,6 +59,7 @@ Of course start with installing **facitars** `yarn add facitars`
 
 ```javascript
 // require
+// Note you must call .node() for server rendering 
 const Facitars = require('facitars').node();
 ```
 
@@ -80,7 +81,7 @@ const facitars = new Facitars();
 // Note generate() function is asynchronous
 (async () => {
 	// create 300x300px facitar for the seed 'Anthony Mugendi'
-	let { svg, color } = await facitars.generate('Anthony Mugendi', 100);
+	let { svg, color } = await facitars.generate('Anthony Mugendi', 300);
 	// use the svg and color values returned as you desire
 })();
 ```
@@ -89,6 +90,7 @@ const facitars = new Facitars();
 
 ```javascript
 // simply require facitars
+// note we call .browser() for webpack
 const Facitar = require('facitars').browser();
 
 // proceed to use as desired
