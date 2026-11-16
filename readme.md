@@ -2,15 +2,15 @@
 
 Small, colorful, gender-neutral SVG faces from any non-empty string. The same seed produces the same avatar and primary color in Node.js and browsers, without a DOM, network requests, SVG.js, or JSDOM.
 
-![Avatar generated from Anthony Mugendi](./examples/test.svg)
+![Sample facitars](./examples/screenshot.png)
 
 **Facitars** was built after I tried dozens of others and couldn't find one that provided support for all of the following:
 
-1. Creating lightweight (no complex curves and paths) SVG avatars with the help of SVG.js. The minified javascript file is only 17.8 KBs of awesomeness!
+1. Creating lightweight (no complex curves and paths) SVG avatars. 
 
 2. Generating and Returning a unique (seed generated) color for each avatar. This is useful for applications where you wish to color code certain parts of your UI based on a users ID/email or whatever your seed value may be.
 
-3. Most importantly, this project is generates SVG avatars both in the browser and on the server in a consistent manner. To do so, it relies on JSDOM and SVG.js while avoiding SVG operations that would produce inconsistent SVGs on browser and server. This means that facitars goes beyond other avatar generators out there!
+3. Most importantly, this project is generates SVG avatars both in the browser and on the server in a consistent manner. 
 
 4. Finally, all avatars generated should be of the same size so as to fit well in grids and UIs
 
