@@ -11,31 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 const Facitars = require('./src/facitars');
 
-function node() {
-	// JSDOM is needed for node module to provide DOM
-	const jsdom = require('jsdom');
-	const path = require('path');
-	const fs = require('fs');
-
-	// read local file for server use instead of trying to load
-	// this is because the server version should be able to run with no external http calls
-	// This is more so the case because we enable "runScripts: 'dangerously'" and thus should never trust scripts loaded externally!!
-	const localSvgJs = fs.readFileSync(
-		path.join(__dirname, './src/lib/svg.min.js')
-	);
-
-	class JSDomInjector extends Facitars {
-		constructor() {
-			super({ jsdom, localSvgJs });
-		}
-	}
-
-	return JSDomInjector;
-}
-
+// Keep the v1 entry points; both environments now use the same renderer.
 module.exports = {
-	browser: ()=>Facitars,
-	node,
+	browser: () => Facitars,
+	node: () => Facitars,
 };
