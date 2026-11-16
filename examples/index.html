@@ -1,179 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Facitars Test</title>
-
-		<script src="http://chancejs.com/chance.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
-
-		<script src="../dist/facitars.js"></script>
-
-		<style>
-			body {
-				background-color: #eee;
-			}
-			.facitar {
-				float: left;
-				padding: 5px;
-				border: 1px solid #eee;
-				margin: 2px;
-				font-size: 12px;
-			}
-			.facitar svg {
-				margin: 5px;
-			}
-
-			.facitar .color {
-				padding: 2px 5px;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="facitars"></div>
-
-		<script>
-			// generate some random name using chance
-			let names = [
-				'Anthony Mugendi',
-				'Marie Marsh',
-				'Birdie Romero',
-				'Martha Hubbard',
-				'Nannie Stanley',
-				'Ronnie McGee',
-				'Todd Kelley',
-				'David Vasquez',
-				'Elizabeth Valdez',
-				'Theodore Farmer',
-				'Gussie Meyer',
-				'Mollie Hernandez',
-				'Ida McCoy',
-				'Tom Welch',
-				'Harriett Diaz',
-				'Rebecca Tate',
-				'Glenn Allison',
-				'Sally Dennis',
-				'Winnie Barker',
-				'Larry Ward',
-				'Callie McCormick',
-				'Sara Bowers',
-				'Lizzie Pearson',
-				'Ruby McKenzie',
-				'Shane Schultz',
-				'Edward Park',
-				'Lina Schmidt',
-				'Lottie Payne',
-				'Corey Todd',
-				'Ricky Hammond',
-				'Martin Townsend',
-				'Kathryn Cunningham',
-				'Brandon Bailey',
-				'William Becker',
-				'Floyd Snyder',
-				'Madge Allen',
-				'Nell Beck',
-				'Isabelle Richards',
-				'Minerva Becker',
-				'Marvin George',
-				'Sally Welch',
-				'Jeremiah Johnston',
-				'Edgar Blair',
-				'Paul Singleton',
-				'Luis Barnett',
-				'Ivan Hughes',
-				'Cody Steele',
-				'Curtis Young',
-				'Elmer Caldwell',
-				'Jeanette Riley',
-				'Eleanor Malone',
-				'Jeanette Steele',
-				'Susan Tucker',
-				'Evelyn Brady',
-				'Elijah Jordan',
-				'Alexander Robbins',
-				'Lewis Owens',
-				'Randy Crawford',
-				'Walter Miller',
-				'Shawn Harvey',
-				'Harvey Lawrence',
-				'Jeanette Quinn',
-				'Nora Harper',
-				'Eleanor Perry',
-				'Marguerite Summers',
-				'Lura Harrington',
-				'Maria Dunn',
-				'Lucile Diaz',
-				'Maurice Parks',
-				'Gregory Thornton',
-				'Blake Rodriquez',
-				'Garrett Morales',
-				'Louisa Alexander',
-				'Albert Lowe',
-				'Alta Phelps',
-				'Gussie Schmidt',
-				'Gregory Herrera',
-				'Susie Walker',
-				'Carrie Norman',
-				'Inez Cross',
-				'Roxie Singleton',
-				'Mason Gutierrez',
-				'Chester Jones',
-				'Jeffery Malone',
-				'Richard Norris',
-				'Helen Rodriguez',
-				'Jon Marsh',
-				'Cynthia Crawford',
-				'Lewis Hogan',
-				'Bill Drake',
-				'Effie Saunders',
-				'Ronald McKenzie',
-				'Tony Conner',
-				'Harriet Ball',
-				'Marie Walker',
-				'Barbara Wilkins',
-				'Estella Warren',
-				'Adelaide Peters',
-				'Randall Burke',
-				'Ruth Garrett',
-				'Isabella Vasquez',
-			];
-
-			const facitars = new Facitars();
-
-			// console.log(facitar);
-			console.time('Generating Facitars');
-
-			(async () => {
-				let container = $('#facitars');
-
-				for (let name of names) {
-					let { svg, color } = await facitars.generate(name);
-
-					// console.log(svg, color);
-
-					let clrEl = $('<div/>')
-						.addClass('color')
-						.css({
-							background: color,
-						})
-						.text(color);
-
-					let nameEl = $('<div/>').text(name);
-
-					$('<div/>')
-						.append(svg)
-						.append(nameEl)
-						.append(clrEl)
-						.addClass('facitar')
-						.appendTo(container);
-
-					// body.append(svg);
-				}
-
-				console.timeEnd('Generating Facitars');
-			})();
-		</script>
-	</body>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Facitars — the avatar playground</title>
+	<link rel="icon" href="data:,">
+	<link rel="stylesheet" href="/examples/playground.css">
+	<script defer src="/dist/facitars.min.js"></script>
+	<script defer src="/examples/playground.js"></script>
+</head>
+<body>
+	<header><a class="brand" href="/">facitars<span aria-label="version 2">2.0</span></a><a href="#gallery">Explore the features <span aria-hidden="true">↓</span></a></header>
+	<main>
+		<section class="intro"><h1>A little character.<br>A lot of possibility.</h1><p>Give a string a face. The same string always makes the same avatar, in your browser and on your server.</p></section>
+		<section class="workbench" aria-label="Avatar playground">
+			<div class="controls">
+				<h2>Meet your next avatar.</h2>
+				<label for="seed">Your string</label>
+				<input id="seed" type="text" value="Anthony Mugendi" autocomplete="off" spellcheck="false" aria-describedby="seed-help" maxlength="10000">
+				<p class="hint" id="seed-help">A name, email, handle, or something completely made up.</p>
+				<label for="size">SVG size</label>
+				<div class="size-control"><input id="size" type="range" min="24" max="512" value="160" step="8"><output id="size-value" for="size">160 px</output></div>
+				<div class="actions"><button id="shuffle" type="button">Try another string</button><button class="secondary" id="download" type="button">Download SVG</button></div>
+				<p id="error" role="alert"></p>
+				<div class="result" aria-live="polite"><span>Primary color <strong id="color"><span id="swatch"></span><span id="color-value"></span></strong></span><span>SVG weight <strong id="weight"></strong></span></div>
+			</div>
+			<div class="preview-area"><div id="preview" role="img" aria-label="Generated avatar"></div><p id="preview-label"></p><div class="sizes" aria-label="Preview at common avatar sizes"><div><span id="small-24"></span><small>24 px</small></div><div><span id="small-40"></span><small>40 px</small></div><div><span id="small-64"></span><small>64 px</small></div></div></div>
+		</section>
+		<section class="neighbors" aria-labelledby="neighbors-title"><div class="section-heading"><h2 id="neighbors-title">A few familiar strangers.</h2><p>Select a face to try its string.</p></div><div id="comparison" class="comparison"></div></section>
+		<section id="gallery" aria-labelledby="gallery-title"><div class="section-heading"><div><h2 id="gallery-title">Small shapes. Big personalities.</h2><p>Ten shape families. Five geometries each. All 50, side by side.</p></div><div><label for="feature">Explore a feature</label><select id="feature"></select></div></div><p class="hint">The chosen feature is shown on a fixed face so you can compare its geometry. Select a variation to try it on your avatar.</p><div id="feature-gallery" class="feature-gallery"></div><button id="reset" class="secondary" type="button" hidden>Reset feature choices</button><p id="choices" role="status"></p></section>
+		<details><summary>Peek at the SVG</summary><pre><code id="source"></code></pre></details>
+	</main>
+	<footer><p>Made of SVG. Full of character.</p><p>Rendered locally. Your strings stay in this browser.</p></footer>
+</body>
 </html>
