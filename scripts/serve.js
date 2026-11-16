@@ -25,5 +25,5 @@ const server = http.createServer(async (req, res) => {
 		res.writeHead(500).end('File unavailable. Run npm run build first.');
 	}
 });
-server.listen(3033, '127.0.0.1', () => console.log('Facitars playground: http://127.0.0.1:3000'));
+server.listen(3033, '127.0.0.1', () => console.log('Facitars playground: http://127.0.0.1:3033'));
 server.on('error', error => { console.error(error.message); process.exitCode = 1; });
